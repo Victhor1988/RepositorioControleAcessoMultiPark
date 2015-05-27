@@ -39,6 +39,27 @@ public class ArquivoMB extends AbstractMB implements Serializable {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
+	public void fazerDownloadAdmin() throws FileNotFoundException{
+		arquivoDownload = null;
+		
+		try {
+			if(filial != null){
+				String caminho = filial.getPathArquivo() + File.separator + filial.getNomeArquivo();
+				
+			    FileInputStream stream = new FileInputStream(caminho);      
+			    arquivoDownload = new DefaultStreamedContent(stream, caminho, filial.getNomeArquivo()); 
+			}
+		} catch (Exception e) {
+			keepDialogOpen();
+			displayErrorMessageToUser("Desculpe, ocorreu um problema realizar o download do arquivo. Favor tentar mais tarde.");
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * @return
+	 * @throws FileNotFoundException
+	 */
 	public void fazerDownload() throws FileNotFoundException{
 		arquivoDownload = null;
 		
