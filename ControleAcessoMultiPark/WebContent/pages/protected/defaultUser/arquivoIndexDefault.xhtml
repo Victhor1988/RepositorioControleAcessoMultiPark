@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="/pages/protected/templates/master.xhtml">
+		<ui:define name="divMain" >
+			<h:form id="filialObterForm" prependId="false" >
+				<h:panelGrid columns="2" id="painelArquivoDefault">
+					<h:outputText value="#{bundle.filialId}" />
+					<h:outputText value="#{userMB.user.filial_id.id}" />
+					<h:outputText value="#{bundle.filialNome}" />
+					<h:outputText value="#{userMB.user.filial_id.nome}" />
+					<h:outputText value="#{bundle.filialCidade}" />
+					<h:outputText value="#{userMB.user.filial_id.cidade}" />
+					<h:outputText value="#{bundle.filialUF}" />
+					<h:outputText value="#{userMB.user.filial_id.uf}" />
+	
+					<p:commandButton id="idDownloadLink" value="download" ajax="true" onclick="PrimeFaces.monitorDownload(start, stop)"     
+				            	icon="ui-icon-arrowthickstop-1-s" action="#{arquivoMB.fazerDownload}">    
+		      					<p:fileDownload value="#{arquivoMB.arquivoDownload}" />
+	        		</p:commandButton>    
+	        		
+	        		<p:fileUpload id="idUploadLink" fileUploadListener="#{arquivoMB.fileUploadAction}" auto="true" label="upload"/>
+				        
+				</h:panelGrid>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

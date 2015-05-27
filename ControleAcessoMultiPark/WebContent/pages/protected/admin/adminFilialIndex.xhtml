@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="/pages/protected/templates/master.xhtml">
+		<ui:define name="divMain">
+			<h:form id="filiaisForm"> 
+				<p:dataTable id="filiaisTable" value="#{filialMB.allFilial}" var="filial" emptyMessage="#{bundle.nenhumaFilial}" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.filialId}" />
+						</f:facet>
+
+						<h:outputText value="#{filial.id}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.filialNome}" />
+						</f:facet>
+
+						<h:outputText value="#{filial.nome}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.filialCidade}" />
+						</f:facet>
+
+						<h:outputText value="#{filial.cidade}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.filialUF}" />
+						</f:facet>
+
+						<h:outputText value="#{filial.uf}" lang="2"/>
+					</p:column>
+
+					<p:column>
+						<p:commandButton value="#{bundle.obter}" icon="ui-icon-bullet" onclick="filialObterWidget.show();" update=":filialObterForm">
+							<f:setPropertyActionListener target="#{filialMB.filial}" value="#{filial}" />
+						</p:commandButton>
+						
+						<p:spacer width="10px" />
+						<p:commandButton value="#{bundle.alterar}" icon="ui-icon-pencil" update=":filialAlterarForm" onclick="filialAlterarWidget.show();">
+							<f:setPropertyActionListener target="#{filialMB.filial}" value="#{filial}" />
+						</p:commandButton>
+						
+						<p:spacer width="10px" />
+						<p:commandButton value="#{bundle.deletar}" icon="ui-icon-trash" update=":filialDeletarForm" onclick="filialDeletarWidget.show();">
+							<f:setPropertyActionListener target="#{filialMB.filial}" value="#{filial}" />
+						</p:commandButton>
+						
+					</p:column>
+
+				</p:dataTable>
+				<p:commandButton value="#{bundle.criar} #{bundle.filial}" icon="ui-icon-plus" update=":filialCriarForm" 
+					actionListener="#{filialMB.resetarFilial()}" onclick="filialCriarWidget.show();" />
+			</h:form>
+
+			<ui:include	src="/pages/protected/admin/filial/filialCriar.xhtml" />
+			<ui:include src="/pages/protected/admin/filial/filialObter.xhtml" />
+			<ui:include src="/pages/protected/admin/filial/filialAlterar.xhtml" />
+			<ui:include src="/pages/protected/admin/filial/filialDeletar.xhtml" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

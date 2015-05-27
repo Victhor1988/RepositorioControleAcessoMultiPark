@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="/pages/protected/templates/master.xhtml">
+		<ui:define name="divMain">
+			<h:form id="usuariosForm"> 
+				<p:dataTable id="usuariosTable" value="#{userMB.allUsuarios}" var="usuario"
+					emptyMessage="#{bundle.nenhumUsuario}" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.usuarioNome}" />
+						</f:facet>
+
+						<h:outputText value="#{usuario.name}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.usuarioEmail}" />
+						</f:facet>
+
+						<h:outputText value="#{usuario.email}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.usuarioFilial}" />
+						</f:facet>
+
+						<h:outputText value="#{usuario.filial_id.nome}" />
+					</p:column>
+
+					<p:column>
+						<p:commandButton value="#{bundle.obter}" icon="ui-icon-bullet" onclick="usuarioObterWidget.show();" update=":usuarioObterForm">
+							<f:setPropertyActionListener target="#{userMB.usuario}" value="#{usuario}" />
+						</p:commandButton>
+						
+						<p:spacer width="10px" />
+						<p:commandButton value="#{bundle.alterar}" icon="ui-icon-pencil" update=":usuarioAlterarForm" onclick="usuarioAlterarWidget.show();">
+							<f:setPropertyActionListener target="#{userMB.usuario}" value="#{usuario}" />
+						</p:commandButton>
+						
+						<p:spacer width="10px" />
+						<p:commandButton value="#{bundle.deletar}" icon="ui-icon-trash" update=":usuarioDeletarForm" onclick="usuarioDeletarWidget.show();">
+							<f:setPropertyActionListener target="#{userMB.usuario}" value="#{usuario}" />
+						</p:commandButton>
+						
+					</p:column>
+
+				</p:dataTable>
+				<p:commandButton value="#{bundle.criar} #{bundle.usuario}"
+					icon="ui-icon-plus" update=":usuarioCriarForm"
+					actionListener="#{userMB.resetarUsuario()}"
+					onclick="usuarioCriarWidget.show();" />
+			</h:form>
+
+			<ui:include	src="/pages/protected/admin/usuario/usuarioCriar.xhtml" />
+			<ui:include src="/pages/protected/admin/usuario/usuarioObter.xhtml" />
+			<ui:include src="/pages/protected/admin/usuario/usuarioAlterar.xhtml" />
+			<ui:include src="/pages/protected/admin/usuario/usuarioDeletar.xhtml" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:dialog widgetVar="filialObterWidget" id="filialObterId" height="200" width="400" modal="true"
+		closable="true" draggable="false" resizable="false">
+		<h:form id="filialObterForm" prependId="false">
+			<h:panelGrid columns="2">
+				<h:outputText value="#{bundle.filialId}" />
+				<h:outputText value="#{filialMB.filial.id}" />
+				<h:outputText value="#{bundle.filialNome}" />
+				<h:outputText value="#{filialMB.filial.nome}" />
+				<h:outputText value="#{bundle.filialCidade}" />
+				<h:outputText value="#{filialMB.filial.cidade}" />
+				<h:outputText value="#{bundle.filialUF}" />
+				<h:outputText value="#{filialMB.filial.uf}" />
+
+				<p:commandButton value="#{bundle.ok}" icon="ui-icon-arrow-1-w" actionListener="#{filialMB.resetarFilial()}"
+					onclick="filialObterWidget.hide();" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="/pages/protected/templates/master.xhtml">
+		<ui:define name="divMain">
+			<h:form id="filiaisForm" enctype="multipart/form-data"> 
+				<p:dataTable id="filiaisTable" value="#{filialMB.allFilial}" var="filial" emptyMessage="#{bundle.nenhumaFilial}" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.filialId}:" />
+						</f:facet>
+						<h:outputText value="#{filial.id}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.filialNome}:" />
+						</f:facet>
+						<h:outputText value="#{filial.nome}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.filialNomeArquivo}:" />
+						</f:facet>
+						<h:outputText value="#{filial.nomeArquivo}" />
+					</p:column>
+
+					<p:column > 
+						<p:commandButton id="idDownloadLink" value="download" ajax="true" onclick="PrimeFaces.monitorDownload(start, stop)"     
+				            	icon="ui-icon-arrowthickstop-1-s" action="#{arquivoMB.fazerDownload}">    
+				       		<f:setPropertyActionListener target="#{arquivoMB.filial}" value="#{filial}"  />
+				      		<p:fileDownload value="#{arquivoMB.arquivoDownload}" />
+				        </p:commandButton>    
+					</p:column>
+
+					<p:column > 
+						<p:fileUpload value="#{arquivoMB.arquivoUpload}" mode="simple"/>
+							<p:commandButton id="idUploadLink" value="upload" ajax="true" icon="ui-icon-arrowthickstop-1-n" actionListener="#{arquivoMB.resetarArquivo}">
+							<f:setPropertyActionListener target="#{arquivoMB.filial}" value="#{filial}" />
+						</p:commandButton> 
+					</p:column>
+ 
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

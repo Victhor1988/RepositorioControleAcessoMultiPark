@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:dialog widgetVar="filialDeletarWidget" id="filialDeletarId" height="100" width="300" modal="true"
+		closable="true" draggable="false" resizable="false">
+		<h:form id="filialDeletarForm" prependId="false">
+			#{bundle.apagarMensagem}: <h:outputText value="#{filialMB.filial.nome}" /><br/><br/>
+
+			<p:commandButton value="#{bundle.deletar}" icon="ui-icon-plus" action="#{filialMB.deletarFilial()}"
+				update=":messageGrowl :filiaisForm:filiaisTable"
+				oncomplete="closeDialogIfSucess(xhr, status, args, filialDeletarWidget, 'filialDeletarId')" />
+			<p:commandButton value="#{bundle.cancelar}" icon="ui-icon-cancel" actionListener="#{filialMB.resetarFilial()}"
+				onclick="filialDeletarWidget.hide();" type="button" />
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

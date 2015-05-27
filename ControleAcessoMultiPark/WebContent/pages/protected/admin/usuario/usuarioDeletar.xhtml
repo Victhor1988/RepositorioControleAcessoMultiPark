@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:dialog widgetVar="usuarioDeletarWidget" id="usuarioDeletarId" height="100" width="300" modal="true"
+		closable="true" draggable="false" resizable="false">
+		<h:form id="usuarioDeletarForm" prependId="false">
+			#{bundle.apagarMensagem}: <h:outputText value="#{userMB.usuario.name}" /><br/><br/>
+
+			<p:commandButton value="#{bundle.deletar}" icon="ui-icon-plus" action="#{userMB.deletarUsuario()}"
+				update=":messageGrowl :usuariosForm:usuariosTable"
+				oncomplete="closeDialogIfSucess(xhr, status, args, usuarioDeletarWidget, 'usuarioDeletarId')" />
+			<p:commandButton value="#{bundle.cancelar}" icon="ui-icon-cancel" actionListener="#{userMB.resetarUsuario()}"
+				onclick="usuarioDeletarWidget.hide();" type="button" />
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:composition>
+		<h:form>
+			<p:menu style="width: 220px">
+				<p:submenu label="Menu">
+					<p:menuitem icon="ui-icon-key"
+						rendered="#{userMB.admin}"
+						action="/pages/protected/admin/arquivoIndexAdmin.xhtml"
+						value="#{bundle.relatorios}" ajax="false" immediate="true" />
+						
+					<p:menuitem icon="ui-icon-key"
+						rendered="#{userMB.defaultUser}"
+						action="/pages/protected/defaultUser/arquivoIndexDefault.xhtml"
+						outcome="/pages/protected/defaultUser/arquivoIndexDefault.xhtml"
+						value="#{bundle.relatorios}" ajax="false" immediate="true" />
+
+					<p:menuitem icon="ui-icon-contact" rendered="#{userMB.admin}"
+						action="/pages/protected/admin/adminIndex.xhtml"
+						value="#{bundle.usuarioPlural}" ajax="false" immediate="true"/>
+
+					<p:menuitem icon="ui-icon-key" rendered="#{userMB.admin}"
+						action="/pages/protected/admin/adminFilialIndex.xhtml"
+						value="#{bundle.filialPlural}" ajax="false" immediate="true" />
+						
+					<p:menuitem icon="ui-icon-key" rendered="#{userMB.admin or userMB.defaultUser}"
+						url="http://www.gmail.com" target="blank" value="#{bundle.email}" 
+						ajax="false" immediate="true" />
+						
+					<p:menuitem icon="ui-icon-key" rendered="#{userMB.admin or userMB.defaultUser}"
+						action="/pages/protected/defaultUser/arquivoIndex.xhtml"
+						value="#{bundle.chat}" ajax="false" immediate="true" />
+				</p:submenu>
+			</p:menu>
+		</h:form>
+	</ui:composition>
+</h:body>
+</html>

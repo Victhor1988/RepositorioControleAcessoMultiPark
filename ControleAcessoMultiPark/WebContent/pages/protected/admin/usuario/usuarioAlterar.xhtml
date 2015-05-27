@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<p:dialog widgetVar="usuarioAlterarWidget" id="usuarioAlterarId" height="200" width="400" modal="true"
+		closable="true" draggable="false" resizable="false">
+		<h:form id="usuarioAlterarForm" prependId="false">
+			<h:panelGrid columns="2">
+				<h:outputText value="* #{bundle.usuarioNome}" />
+				<h:inputText value="#{userMB.usuario.name}" required="true">
+					<f:validateLength minimum="4" />
+				</h:inputText>
+				
+				<h:outputText value="* #{bundle.usuarioEmail}" />
+				<h:inputText value="#{userMB.usuario.email}"  required="true"/>
+				
+				<h:outputText value="* #{bundle.usuarioSenha}" />
+				<h:inputText value="#{userMB.usuario.password}"  required="true"/>
+				
+				<h:outputText value="* #{bundle.usuarioFilial}" />
+				<p:selectOneMenu id="filialId" value="#{userMB.usuario.filial_id}" converter="filialConverter" required="true" >
+		            <f:selectItem itemLabel="Selecione" itemValue="" />
+		            <f:selectItems value="#{userMB.allFilial}" var="filial" itemValue="#{filial}" itemLabel="#{filial.nome}"  />
+		        </p:selectOneMenu>
+		        
+				<p:commandButton value="#{bundle.alterar}" icon="ui-icon-plus" action="#{userMB.alterarUsuario()}"
+					update=":messageGrowl :usuariosForm:usuariosTable" 
+					oncomplete="closeDialogIfSucess(xhr, status, args, usuarioAlterarWidget, 'usuarioAlterarId')" />
+				<p:commandButton value="#{bundle.cancelar}" icon="ui-icon-cancel" actionListener="#{usuarioMB.resetarUsuario()}"
+					onclick="usuarioAlterarWidget.hide();" type="button" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

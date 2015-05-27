@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:dialog widgetVar="filialCriarWidget" id="filialCriarId" height="200" width="400" modal="true"
+		closable="true" draggable="false" resizable="false">
+		<h:form id="filialCriarForm" prependId="false">
+			<h:panelGrid columns="2">
+				<h:outputText value="* #{bundle.filialId}" />
+				<h:inputText value="#{filialMB.filial.id}" required="true" label="#{bundle.filialId}" />
+				
+				<h:outputText value="* #{bundle.filialNome}" />
+				<h:inputText value="#{filialMB.filial.nome}" required="true" label="#{bundle.filialNome}" >
+					<f:validateLength minimum="5" />
+				</h:inputText>
+				
+				<h:outputText value="* #{bundle.filialCidade}" />
+				<h:inputText value="#{filialMB.filial.cidade}" required="true" label="#{bundle.filialCidade}">
+					<f:validateLength minimum="3" />
+				</h:inputText>
+				
+				<h:outputText value="* #{bundle.filialUF}" />
+				<h:inputText value="#{filialMB.filial.uf}" required="true" label="#{bundle.filialUF}" maxlength="2">
+					<f:validateLength maximum="2" minimum="2"/>
+				</h:inputText>
+				
+				<h:outputText value="* #{bundle.filialNomeArquivo}" />
+				<h:inputText value="#{filialMB.filial.nomeArquivo}" required="true" label="#{bundle.filialNomeArquivo}" >
+					<f:validateLength maximum="5"/>
+				</h:inputText>
+				
+				<p:commandButton value="#{bundle.criar}" icon="ui-icon-plus" action="#{filialMB.criarFilial()}"
+					update=":messageGrowl :filiaisForm:filiaisTable"
+					oncomplete="closeDialogIfSucess(xhr, status, args, filialCriarWidget, 'filialCriarId')" />
+					
+				<p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" actionListener="#{filialMB.resetarFilial()}"
+					onclick="filialCriarWidget.hide();" type="button" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

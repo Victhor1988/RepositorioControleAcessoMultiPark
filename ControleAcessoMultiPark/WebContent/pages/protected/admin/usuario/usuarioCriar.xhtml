@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<p:dialog widgetVar="usuarioCriarWidget" id="usuarioCriarId" height="200" width="400" modal="true"
+		closable="true" draggable="false" resizable="false">
+		<h:form id="usuarioCriarForm" prependId="false">
+			<h:panelGrid columns="2">
+				<h:outputText value="* #{bundle.usuarioNome}" />
+				<h:inputText value="#{userMB.usuario.name}" required="true">
+					<f:validateLength minimum="5" />
+				</h:inputText>
+				
+				<h:outputText value="* #{bundle.usuarioEmail}" />
+				<h:inputText value="#{userMB.usuario.email}" required="true">
+						<f:validateLength minimum="5" />
+				</h:inputText>
+				
+				<h:outputText value="* #{bundle.usuarioPerfil}" />
+				<p:selectOneMenu id="idPerfil" value="#{userMB.perfil}" style="width:125px">
+		            <f:selectItem itemLabel="Selecione" itemValue="" />
+		            <f:selectItem itemLabel="Administrador" itemValue="1" />
+		            <f:selectItem itemLabel="Usuario" itemValue="2" />
+		        </p:selectOneMenu>
+				
+				<h:outputText value="* #{bundle.usuarioFilial}" />
+				<p:selectOneMenu id="filial" value="#{filialMB.filial}" converter="filialConverter">
+		            <f:selectItem itemLabel="Selecione" itemValue="" />
+		            <f:selectItems value="#{filialMB.allFilial}" var="filial" itemValue="#{filial}" itemLabel="#{filial.nome}"  />
+		        </p:selectOneMenu>
+		        
+				<p:commandButton value="#{bundle.criar}" icon="ui-icon-plus" action="#{userMB.criarUsuario()}"
+					update=":messageGrowl :usuariosForm:usuariosTable"
+					oncomplete="closeDialogIfSucess(xhr, status, args, usuarioCriarWidget, 'usuarioCriarId')" >
+					<f:setPropertyActionListener target="#{userMB.filial}" value="#{filialMB.filial}"  />
+					</p:commandButton>
+					
+				<p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" actionListener="#{userMB.resetarUsuario()}"
+					onclick="usuarioCriarWidget.hide();" type="button" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>
